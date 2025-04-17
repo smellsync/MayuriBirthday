@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Mayuri!</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background-color: #fff0f5;
+      padding-top: 50px;
+      transition: background-color 1s;
+    }
+    #imageContainer {
+      display: none;
+      margin-top: 30px;
+    }
+    #flashText {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #ff1493;
+      margin-top: 20px;
+      animation: flash 1s infinite;
+      text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4;
+    }
+    @keyframes flash {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+    input, button {
+      font-size: 1.2em;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d81b60;
+    }
+  </style>
+</head>
+<body>
+  <h1>Enter Your Name</h1>
+  <input type="text" id="nameInput" placeholder="Your name here">
+  <button onclick="checkName()">Submit</button>
+
+  <div id="imageContainer">
+    <img src="mayuri.png" alt="Birthday Image" width="400">
+    <div id="flashText">Happy Birthday Mayuri!</div>
+    <audio id="birthdaySong" autoplay>
+      <source src="happy-birthday.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <!-- Include confetti script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function checkName() {
+      const name = document.getElementById('nameInput').value.trim().toLowerCase();
+      if (name === 'mayuri') {
+        document.body.style.backgroundColor = '#ffe6f0';
+        document.getElementById('imageContainer').style.display = 'block';
+        document.getElementById('birthdaySong').play();
+
+        // Confetti burst
+        confetti({
+          particleCount: 200,
+          spread: 90,
+          origin: { y: 0.6 }
+        });
+
+        // Keep confetti going for a few seconds
+        let duration = 5 * 1000;
+        let end = Date.now() + duration;
+        (function frame() {
+          confetti({
+            particleCount: 4,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0 }
+          });
+          confetti({
+            particleCount: 4,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1 }
+          });
+          if (Date.now() < end) {
+            requestAnimationFrame(frame);
+          }
+        })();
+      } else {
+        alert('Oops! Only Mayuri gets this surprise!');
+      }
+    }
+  </script>
+</body>
+</html>
